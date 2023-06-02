@@ -1,0 +1,10 @@
+<launch>
+<rosparam param="/g500/dynamics/external_force_topic">g500/ForceSensor</rosparam>	
+<arg name="scene" default="pipeFollowing_turns.xml" />
+	<arg name="bench" default="pipeFollowing.xml" />
+	<node name="uwsimbenchmarks" pkg="uwsimbenchmarks" type="uwsimbenchmarks" args="--configfile $(arg scene) --benchmark $(arg bench)" output="screen" respawn="false"/>
+	<node name="groundTruth_turns" pkg="pipefollowing" type="groundTruth_turns" output="screen" respawn="false" />
+<arg name="thrusters_topic" default="/g500/velocityCommand" />
+<node name="waypoints" pkg="pipefollowing" type="PF_waypoints.py" args="$(arg thrusters_topic)" output="screen" respawn="false"/>
+</launch>
+
