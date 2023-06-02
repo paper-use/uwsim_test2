@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE benchmark SYSTEM "benchmark.dtd" >
+
+<benchmark>
+  <measures>
+
+    <reconstruction3D detailedResultsToGlobals="true">
+      <name>reconstruction</name>	
+      <target> blackbox </target>
+      <!--<topic> /stereo_down/points2 </topic>
+      <from> real_stereo_down </from>-->
+      <topic> /LaserReconstructionPointCloud </topic>
+      <from> kinematic_base </from>
+      <levelOfDetail>0.01</levelOfDetail>
+      <log>0.1</log>
+      <startOn>
+	<type>onInit</type>
+      </startOn>
+      <stopOn>
+	<type>never</type>
+      </stopOn>
+    </reconstruction3D>
+
+  </measures>
+
+  <startOn>
+     <type>service</type>
+     <target> startBench </target>
+  </startOn>
+
+  <stopOn>
+     <type>never</type>
+  </stopOn> 
+    
+  <function publishResult="true">reconstruction</function>
+
+  <sceneUpdater> 
+    <sceneLightUpdater>
+      <initialValue>0.00</initialValue>
+      <finalValue>1.02</finalValue>
+      <step>0.05</step>
+      <interval>20</interval>
+    </sceneLightUpdater>
+  </sceneUpdater>
+
+</benchmark>

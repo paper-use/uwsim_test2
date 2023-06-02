@@ -1,0 +1,89 @@
+<!ELEMENT benchmark (measures,startOn,stopOn,function,sceneUpdater)>
+
+<!ELEMENT measures (time*,collision*,positionError*, distance*, euclideanNorm*, objectCenteredOnCam*, reconstruction3D*, pathFollowing*)>
+
+<!-- benchmark -->
+<!ELEMENT startOn (type,target?,position?)>
+<!ELEMENT stopOn (type,target?,position?)>
+<!ELEMENT function (#PCDATA)>
+<!ATTLIST function publishResult (true|false) "false">
+<!ATTLIST function publishRate CDATA #IMPLIED>
+
+<!-- Measures -->
+<!ELEMENT time (name,log?,startOn,stopOn)>
+<!ELEMENT collision (name,target,log?,startOn,stopOn)>
+<!ELEMENT positionError (name,target,position,topic?,log?,startOn,stopOn)>
+<!ELEMENT distance (name,target,log?,startOn,stopOn)>
+<!ELEMENT euclideanNorm (name,groundTruth,target,log?,startOn,stopOn)>
+<!ELEMENT objectCenteredOnCam (name,target,camera,log?,startOn,stopOn)>
+<!ELEMENT reconstruction3D (name,target, topic, from, levelOfDetail?, log?,startOn,stopOn)>
+<!ATTLIST reconstruction3D detailedResultsToGlobals (true|false) "false">
+<!ELEMENT pathFollowing (name, target, topic?, from?, log?,startOn,stopOn)>
+
+<!-- Trigger -->
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT target (#PCDATA)>
+<!ELEMENT position (x,y,z)>
+
+
+<!-- Position -->
+<!ELEMENT x (#PCDATA)>
+<!ELEMENT y (#PCDATA)>
+<!ELEMENT z (#PCDATA)>
+
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT log (#PCDATA)>
+
+<!-- Euclidean Norm -->
+<!ELEMENT groundTruth ((value+)|(camera,target,publishOn?)|(from,to))>
+<!ELEMENT camera (#PCDATA)>
+<!ELEMENT publishOn (#PCDATA)>
+<!ATTLIST groundTruth type (constant|cornersFromCamera|centroidFromCamera|relativeLocation) #REQUIRED>
+
+<!ELEMENT value (#PCDATA)>
+<!ELEMENT from (#PCDATA)>
+<!ELEMENT to (#PCDATA)>
+
+<!-- reconstruction3D -->
+<!ELEMENT topic (#PCDATA)>
+<!ELEMENT levelOfDetail (#PCDATA)>
+
+<!-- SceneUpdater -->
+
+<!ELEMENT sceneUpdater (none | sceneFogUpdater | currentForceUpdater | armMoveUpdater | repeat | sceneLightUpdater | cameraNoiseUpdater | bagFogUpdater)>
+
+<!ELEMENT none EMPTY>
+
+<!ELEMENT sceneFogUpdater (initialValue, finalValue, step, interval,sceneUpdater?)>
+<!ELEMENT bagFogUpdater (initialValue, finalValue, step, interval, bag, imageTopic, infoTopic, imageDepth, imagePub?, infoPub?,  sceneUpdater?)>
+<!ELEMENT currentForceUpdater (initialValue, finalValue, sphericalDirection, forceVariation, forcePeriod, directionVariation, directionPeriod, random, step, interval, target,sceneUpdater?)>
+<!ATTLIST currentForceUpdater publishAsForce (true|false) "false">
+<!ELEMENT armMoveUpdater (armPosition+, step, interval, target,sceneUpdater?)>
+<!ELEMENT repeat (iterations, interval,sceneUpdater?)>
+<!ELEMENT sceneLightUpdater (initialValue, finalValue, step, interval,sceneUpdater?)>
+<!ELEMENT cameraNoiseUpdater (initialValue, finalValue, step, interval,sceneUpdater?)>
+
+<!ELEMENT armPosition (joint+)>
+<!ELEMENT joint (#PCDATA)>
+<!ELEMENT initialValue (#PCDATA)>
+<!ELEMENT finalValue (#PCDATA)>
+<!ELEMENT step (#PCDATA)>
+<!ELEMENT interval (#PCDATA)>
+<!ELEMENT iterations (#PCDATA)>
+
+<!ELEMENT bag (#PCDATA)>
+<!ELEMENT imageTopic (#PCDATA)>
+<!ELEMENT infoTopic (#PCDATA)>
+<!ELEMENT imageDepth (#PCDATA)>
+<!ELEMENT imagePub (#PCDATA)>
+<!ELEMENT infoPub (#PCDATA)>
+
+<!-- Current -->
+<!ELEMENT sphericalDirection (theta, phi)>
+<!ELEMENT directionVariation (theta, phi)>
+<!ELEMENT directionPeriod (theta, phi)>
+<!ELEMENT theta (#PCDATA)>
+<!ELEMENT phi (#PCDATA)>
+<!ELEMENT forceVariation (#PCDATA)>
+<!ELEMENT forcePeriod (#PCDATA)>
+<!ELEMENT random (#PCDATA)>
